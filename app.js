@@ -8,8 +8,9 @@ const app = express();
 require("./config")(app);
 
 app.use("/api", require("./routes/index.routes"));
-app.use("/api", require("./routes/comment.routes"));
 app.use("/api", require("./routes/auth.routes"));
+app.use("/api", require("./routes/comment.routes"));
+app.use("/api", require("./routes/meal.routes"));
 
 require("./error-handling")(app);
 

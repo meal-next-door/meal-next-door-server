@@ -13,7 +13,7 @@ const mealSchema = new Schema(
         diet: {
             type: String,
             required: [true, "Please tell us in what category this meal falls into"],
-            enum: ["vegetarian", "vegan", "gluten-free", "dairy-free", "allergens-free", "sugar-free", "kosher", "halal"],
+            enum: ["vegetarian", "vegan", "gluten-free", "dairy-free", "allergens-free", "sugar-free", "kosher", "halal", "none"],
         },
         cuisine: [{
             type: String,
@@ -22,7 +22,7 @@ const mealSchema = new Schema(
         }],
         date: {
             type: Date,
-            required: [true, "Please provide a preparation date"]
+            /* required: [true, "Please provide a preparation date"] */
         }
     },
     {
