@@ -1,20 +1,10 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
-
-
-// ℹ️ Handles password encryption
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
-
-// How many rounds should bcrypt run the salt (default [10 - 12 rounds])
+const {isAuthenticated} = require("../middleware/jwt.middleware")
 const saltRounds = 10;
-
-// Require the User model in order to interact with the database
 const User = require("../models/User.model");
-
-// Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
-const isLoggedOut = require("../middleware/isLoggedOut");
-const isLoggedIn = require("../middleware/isLoggedIn");
 
 router.post("/signup", (req, res) => {
   const { username, password } = req.body;
