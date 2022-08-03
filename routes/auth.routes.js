@@ -5,6 +5,8 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
+const { isAuthenticated } = require("../middleware/jwt.middleware")
+
 // How many rounds should bcrypt run the salt
 const saltRounds = 10;
 const User = require("../models/User.model");
