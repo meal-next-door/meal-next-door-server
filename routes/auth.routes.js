@@ -7,10 +7,7 @@ const jwt = require("jsonwebtoken");
 
 // How many rounds should bcrypt run the salt
 const saltRounds = 10;
-
-// Require the User model in order to interact with the database
 const User = require("../models/User.model");
-
 
 
 // 1- FUNCTIONALITY TO SIGN UP
