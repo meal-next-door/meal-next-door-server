@@ -74,7 +74,6 @@ router.post("/signup", (req, res) => {
 router.post("/login", (req, res, next) => {
   const { username, password, address } = req.body;
 
-  // Check login requirements
   if (!username) {
     return res
       .status(400)
@@ -124,9 +123,6 @@ router.post("/login", (req, res, next) => {
 
 // Check if token is valid (JWT stored on the client)
 router.get("/verify", isAuthenticated, (req, res, next) => {
-
-  // If JWT token is valid, the payload gets decoded by the isAuthenticated middleware and made available on `req.payload`
-  console.log(`req.payload`, req.payload);
 
   // Send back the object with user data previously set as the token payload
   res.json(req.payload);
