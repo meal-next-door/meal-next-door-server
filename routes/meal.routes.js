@@ -42,6 +42,7 @@ router.get('/meals/:mealId', (req, res, next) => {
 
     //retrieve specified meal from database
     Meal.findById(mealId)
+        .populate("cook", "username")
         .then(meal => res.json(meal))
         .catch(error => res.json(error));
 });
