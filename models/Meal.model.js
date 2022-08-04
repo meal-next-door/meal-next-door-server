@@ -35,6 +35,6 @@ const mealSchema = new Schema(
     }
 );
 
-const User = model("Meal", mealSchema);
+const Meal = model("Meal", mealSchema);
 
-module.exports = User;
+module.exports = Meal;
