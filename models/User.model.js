@@ -17,8 +17,8 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["cook", "customer", "both"],
-      required: [true, "Please tell us in what category this meal falls into"],
+      enum: ["cook", "customer"],
+      required: [true, "Please tell us if you are a cook, a customer or both"],
     },
     favorites: [{
       type: Schema.Types.ObjectId,
