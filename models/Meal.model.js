@@ -4,7 +4,7 @@ const mealSchema = new Schema(
     {
         title: {
             type: String,
-            required: [true, "Please provide a title"]
+            required: [true, "Please provide a title"],
         },
         description: {
             type: String,
@@ -15,14 +15,18 @@ const mealSchema = new Schema(
             required: [true, "Please tell us in what category this meal falls into"],
             enum: ["vegetarian", "vegan", "gluten-free", "dairy-free", "allergens-free", "sugar-free", "kosher", "halal", "none"],
         },
-        cuisine: [{
+        cuisine: {
             type: String,
             required: [true, "Please tell us in what category this meal falls into"],
             enum: ["italian", "mexican", "greek", "french", "indian", "thai", "mediterranean", "japanese", "chinese", "lebanese"],
-        }],
+        },
         date: {
-            type: Date,
-            /* required: [true, "Please provide a preparation date"] */
+            type: String,
+            required: [true, "Please provide a preparation date"],
+        },
+        cook: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
         }
     },
     {

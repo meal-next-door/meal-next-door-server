@@ -19,9 +19,9 @@ router.get('/meals', (req, res, next) => {
 
 //CREATE new meal
 router.post('/meals', isAuthenticated, (req, res, next) => {
-    const { title, description, diet, cuisine, date } = req.body;
+    const { title, description, diet, cuisine, date, cookId } = req.body;
 
-    Meal.create({ title, description, diet, cuisine, date })
+    Meal.create({ title, description, diet, cuisine, date, cook: cookId })
         .then(response => res.json(response))
         .catch(err => res.json(err));
 });

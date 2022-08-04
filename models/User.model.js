@@ -15,13 +15,14 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Address is required"],
     },
+    role: {
+      type: String,
+      enum: ["cook", "customer", "both"],
+      required: [true, "Please tell us in what category this meal falls into"],
+    },
     favorites: [{
       type: Schema.Types.ObjectId,
       ref: "User",
-    }],
-    comments: [{
-      type: Schema.Types.ObjectId,
-      ref: "Comment",
     }]
   },
   {
