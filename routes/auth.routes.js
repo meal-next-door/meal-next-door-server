@@ -14,12 +14,13 @@ const User = require("../models/User.model");
 
 // 1- FUNCTIONALITY TO SIGN UP
 router.post("/signup", (req, res) => {
-  const { username, password, address } = req.body;
+  const { username, password, address, role } = req.body;
 
-  if (!username || !password || !address) {
+  // Check if all fields are properly filled in
+  if (!username || !password || !address || !role) {
     return res
       .status(400)
-      .json({ errorMessage: "Please provide your username, password, and address." });
+      .json({ errorMessage: "Please provide your username, password, address, and role." });
   }
 
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
@@ -47,6 +48,7 @@ router.post("/signup", (req, res) => {
           username,
           password: hashedPassword,
           address,
+          role
         });
       })
       .then((user) => {
@@ -72,7 +74,7 @@ router.post("/signup", (req, res) => {
 
 // 2- FUNCTIONALITY TO LOGIN
 router.post("/login", (req, res, next) => {
-  const { username, password, address } = req.body;
+  const { username, password } = req.body;
 
   if (!username) {
     return res
@@ -107,7 +109,7 @@ router.post("/login", (req, res, next) => {
         const authToken = jwt.sign(
           payload,
           process.env.TOKEN_SECRET,
-          { algorithm: 'HS256', expiresIn: "6h" }
+          { algorithm: 'HS256', expiresIn: "48h" }
         );
         return res.status(200).json({ authToken: authToken });
       });
