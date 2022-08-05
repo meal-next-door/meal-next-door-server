@@ -8,12 +8,9 @@ const Meal = require('../models/Meal.model');
 
 //READ list of meals
 router.get('/meals', (req, res, next) => {
-    console.log("we are HERE :) ");
     Meal.find()
         .populate("cook", "username")
-        .then(allMeals => {
-            res.json(allMeals)
-        })
+        .then(allMeals => res.json(allMeals))
         .catch(err => res.json(err));
 });
 
