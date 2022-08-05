@@ -103,8 +103,8 @@ router.post("/login", (req, res, next) => {
         }
 
         // If login is successful, create and sign the token
-        const { _id, email, name } = user;
-        const payload = { _id, email, name };
+        const { _id, username, role } = user;
+        const payload = { _id, username, role };
 
         const authToken = jwt.sign(
           payload,
@@ -120,7 +120,6 @@ router.post("/login", (req, res, next) => {
       next(err);
     });
 });
-
 
 
 // Check if token is valid (JWT stored on the client)

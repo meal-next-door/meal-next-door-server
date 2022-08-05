@@ -8,7 +8,6 @@ const Meal = require('../models/Meal.model');
 
 //READ list of meals
 router.get('/meals', (req, res, next) => {
-    console.log("we are HERE :) ");
     Meal.find()
         .populate("cook", "username")
         .then(allMeals => {
@@ -50,7 +49,7 @@ router.get('/meals/:mealId', (req, res, next) => {
 
 
 //UPDATE meal details
-router.put('/meals/:mealId', isAuthenticated, (req, res, next) => {
+router.put('/meals/:mealId', (req, res, next) => {
     const { mealId } = req.params;
 
     //validate mealId
@@ -68,7 +67,7 @@ router.put('/meals/:mealId', isAuthenticated, (req, res, next) => {
 
 
 //DELETE a meal
-router.delete('/meals/:mealId', isAuthenticated, (req, res, next) => {
+router.delete('/meals/:mealId', (req, res, next) => {
     const { mealId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(mealId)) {
