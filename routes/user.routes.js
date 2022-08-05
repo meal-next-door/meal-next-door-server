@@ -29,6 +29,7 @@ router.get('/users/:userId', (req, res, next) => {
 //UPDATE user details
 router.put('/users/:userId', isAuthenticated, (req, res, next) => {
     const { userId } = req.params;
+    console.log(req.body)
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
         res.status(400).json({ message: 'Specified id is not valid' });

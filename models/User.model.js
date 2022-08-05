@@ -23,10 +23,13 @@ const userSchema = new Schema(
     favorites: [{
       type: Schema.Types.ObjectId,
       ref: "User",
+    }],
+    comments: [{
+      type: Schema.Types.ObjectId,
+      ref: "Comment",
     }]
   },
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,
   }
 );
