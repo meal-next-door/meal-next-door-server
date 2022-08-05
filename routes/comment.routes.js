@@ -1,9 +1,22 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
-const {isAuthenticated} = require("../middleware/jwt.middleware");
+
+const { isAuthenticated } = require("../middleware/jwt.middleware");
 const Comment = require('../models/Comment.model');
 
-// Create comment
+
+
+//READ list of comments (not sure we use this, but just in case)
+router.get('/comments', (req, res, next) => {
+    Comment.find()
+        .populate("author", "username")
+        .then(allComments => res.json(allComments))
+        .catch(err => res.json(err));
+});
+
+
+
+// CREATE a comment
 router.post("/new-comment", (req, res, next) => {
     const { title, description, author } = req.body;
 
@@ -12,7 +25,9 @@ router.post("/new-comment", (req, res, next) => {
         .catch(err => res.json(err))
 });
 
-//Comment details (not sure we use this, but just in case)
+
+
+//READ details of a comment (not sure we use this, but just in case)
 router.get('/comment/:commentId', (req, res, next) => {
     const { commentId } = req.params;
 
@@ -26,7 +41,9 @@ router.get('/comment/:commentId', (req, res, next) => {
         .catch(error => res.json(error));
 });
 
-//Update comment
+
+
+//UPDATE a comment
 router.put('/comment/:commentId', (req, res, next) => {
     const { commentId } = req.params;
 
@@ -40,7 +57,9 @@ router.put('/comment/:commentId', (req, res, next) => {
         .catch(error => res.json(error));
 });
 
-//Delete comment
+
+
+//DELETE a comment
 router.delete('/comment/:commentId', (req, res, next) => {
     const { commentId } = req.params;
 
@@ -53,5 +72,7 @@ router.delete('/comment/:commentId', (req, res, next) => {
         .then(() => res.json({ message: `Comment with id ${commentId} was removed successfully.` }))
         .catch(error => res.status(500).json(error));
 });
+
+
 
 module.exports = router;
