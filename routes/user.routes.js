@@ -22,6 +22,7 @@ router.get('/users/:userId', (req, res, next) => {
     }
 
     User.findById(userId)
+        .populate("favorites")
         .then(user => res.json(user))
         .catch(error => res.json(error));
 });
@@ -29,7 +30,6 @@ router.get('/users/:userId', (req, res, next) => {
 //UPDATE user details
 router.put('/users/:userId', isAuthenticated, (req, res, next) => {
     const { userId } = req.params;
-    console.log(req.body)
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
         res.status(400).json({ message: 'Specified id is not valid' });
@@ -40,6 +40,21 @@ router.put('/users/:userId', isAuthenticated, (req, res, next) => {
         .then((updatedUser) => res.json(updatedUser))
         .catch(error => res.json(error));
 });
+
+// Adds a favorite
+router.put('/users/:userId/favorites', isAuthenticated, (req, res, next) => {
+    const { userId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        res.status(400).json({ message: 'Specified id is not valid' });
+        return;
+    }
+
+    User.findByIdAndUpdate(userId, { $push: req.body  }, { returnDocument: 'after' })
+        .then((updatedUser) => res.json(updatedUser))
+        .catch(error => res.json(error));
+});
+
 
 //DELETE a user
 router.delete('/users/:userId', isAuthenticated, (req, res, next) => {
