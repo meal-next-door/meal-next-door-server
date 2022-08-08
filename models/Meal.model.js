@@ -27,6 +27,9 @@ const mealSchema = new Schema(
         cook: {
             type: Schema.Types.ObjectId,
             ref: "User",
+        },
+        image : {
+            type: String,
         }
     },
     {

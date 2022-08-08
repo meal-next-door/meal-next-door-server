@@ -4,8 +4,6 @@ const mongoose = require('mongoose');
 const { isAuthenticated } = require("../middleware/jwt.middleware")
 const Meal = require('../models/Meal.model');
 
-
-
 //READ list of meals
 router.get('/meals', (req, res, next) => {
     Meal.find()
@@ -14,18 +12,15 @@ router.get('/meals', (req, res, next) => {
         .catch(err => res.json(err));
 });
 
-
-
 //CREATE new meal
 router.post('/meals', isAuthenticated, (req, res, next) => {
-    const { title, description, diet, cuisine, date, cookId } = req.body;
+    console.log(req.body)
+    const { title, description, diet, cuisine, date, cookId} = req.body;
 
     Meal.create({ title, description, diet, cuisine, date, cook: cookId })
         .then(response => res.json(response))
         .catch(err => res.json(err));
 });
-
-
 
 //READ meal details
 router.get('/meals/:mealId', (req, res, next) => {
