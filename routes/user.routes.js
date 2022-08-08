@@ -23,6 +23,13 @@ router.get('/users/:userId', (req, res, next) => {
 
     User.findById(userId)
         .populate("favorites")
+        .populate({
+            path : 'comments',
+            populate : {
+              path : 'author'
+            }
+            })
+        // .populate("author")
         .then(user => res.json(user))
         .catch(error => res.json(error));
 });
@@ -43,6 +50,20 @@ router.put('/users/:userId', isAuthenticated, (req, res, next) => {
 
 // Adds a favorite
 router.put('/users/:userId/favorites', isAuthenticated, (req, res, next) => {
+    const { userId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        res.status(400).json({ message: 'Specified id is not valid' });
+        return;
+    }
+
+    User.findByIdAndUpdate(userId, { $push: req.body  }, { returnDocument: 'after' })
+        .then((updatedUser) => res.json(updatedUser))
+        .catch(error => res.json(error));
+});
+
+//Add a comment
+router.put('/users/:userId/comments', isAuthenticated, (req, res, next) => {
     const { userId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
