@@ -12,6 +12,7 @@ app.use("/api", require("./routes/auth.routes"));
 app.use("/api", require("./routes/comment.routes"));
 app.use("/api", require("./routes/meal.routes"));
 app.use("/api", require("./routes/user.routes"));
+app.use("/api", require("./routes/mail.routes"));
 
 require("./error-handling")(app);
 
