@@ -18,7 +18,7 @@ const mealSchema = new Schema(
         cuisine: {
             type: String,
             required: [true, "Please tell us in what category this meal falls into"],
-            enum: ["italian", "mexican", "greek", "french", "indian", "thai", "mediterranean", "japanese", "chinese", "lebanese"],
+            enum: ["italian", "mexican", "greek", "french", "indian", "thai", "mediterranean", "japanese", "chinese", "lebanese", "spanish", "peruvian"],
         },
         date: {
             type: String,
