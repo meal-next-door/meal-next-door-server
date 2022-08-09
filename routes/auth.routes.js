@@ -14,7 +14,7 @@ const User = require("../models/User.model");
 
 // 1- FUNCTIONALITY TO SIGN UP
 router.post("/signup", (req, res) => {
-  const { username, password, address, role } = req.body;
+  const { username, password, address, role, image } = req.body;
 
   // Check if all fields are properly filled in
   if (!username || !password || !address || !role) {
@@ -48,7 +48,8 @@ router.post("/signup", (req, res) => {
           username,
           password: hashedPassword,
           address,
-          role
+          role, 
+          image
         });
       })
       .then((user) => {
