@@ -57,7 +57,7 @@ router.put('/users/:userId/favorites', isAuthenticated, (req, res, next) => {
         return;
     }
 
-    User.findByIdAndUpdate(userId, { $push: req.body  }, { returnDocument: 'after' })
+    User.findByIdAndUpdate(userId, { $addToSet: req.body  }, { returnDocument: 'after' })
         .then((updatedUser) => res.json(updatedUser))
         .catch(error => res.json(error));
 });
