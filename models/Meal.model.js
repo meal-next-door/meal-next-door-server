@@ -11,7 +11,7 @@ const mealSchema = new Schema(
             required: [true, "Please provide a description"],
         },
         diet: {
-            type: String,
+            type: [String],
             required: [true, "Please tell us in what category this meal falls into"],
             enum: ["vegetarian", "vegan", "gluten-free", "dairy-free", "allergens-free", "sugar-free", "kosher", "halal", "none"],
         },
@@ -28,7 +28,7 @@ const mealSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "User",
         },
-        image : {
+        image: {
             type: String,
         }
     },
