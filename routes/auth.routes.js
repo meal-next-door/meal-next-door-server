@@ -53,7 +53,15 @@ router.post("/signup", (req, res) => {
         });
       })
       .then((user) => {
-        res.status(201).json(user);
+        const { _id, username, role } = user;
+        const payload = { _id, username, role };
+
+        const authToken = jwt.sign(
+          payload,
+          process.env.TOKEN_SECRET,
+          { algorithm: 'HS256', expiresIn: "48h" }
+        );
+        return res.status(200).json({ authToken: authToken });
       })
       .catch((error) => {
         if (error instanceof mongoose.Error.ValidationError) {
@@ -62,7 +70,7 @@ router.post("/signup", (req, res) => {
         if (error.code === 11000) {
           return res.status(400).json({
             errorMessage:
-              "Username need to be unique. The username you chose is already in use.",
+              "Username needs to be unique. The username you chose is already in use.",
           });
         }
         return res.status(500).json({ errorMessage: error.message });
