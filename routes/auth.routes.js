@@ -48,7 +48,7 @@ router.post("/signup", (req, res) => {
           username,
           password: hashedPassword,
           address,
-          role, 
+          role,
           image
         });
       })
@@ -105,7 +105,7 @@ router.post("/login", (req, res, next) => {
 
         // If login is successful, create and sign the token
         const { _id, username, role } = user;
-        const payload = { _id, username };
+        const payload = { _id, username, role };
 
         const authToken = jwt.sign(
           payload,
