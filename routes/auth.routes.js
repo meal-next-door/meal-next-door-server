@@ -52,7 +52,15 @@ router.post("/signup", (req, res) => {
         });
       })
       .then((user) => {
-        res.status(201).json(user);
+        const { _id, username, role } = user;
+        const payload = { _id, username, role };
+
+        const authToken = jwt.sign(
+          payload,
+          process.env.TOKEN_SECRET,
+          { algorithm: 'HS256', expiresIn: "48h" }
+        );
+        res.status(201).json({ authToken });
       })
       .catch((error) => {
         if (error instanceof mongoose.Error.ValidationError) {
