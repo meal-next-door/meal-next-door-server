@@ -32,7 +32,6 @@ router.post("/signup", (req, res) => {
     });
   }
 
-
   // Check if username exists in the database
   User.findOne({ username }).then((found) => {
     if (found) {
@@ -53,15 +52,7 @@ router.post("/signup", (req, res) => {
         });
       })
       .then((user) => {
-        const { _id, username, role } = user;
-        const payload = { _id, username, role };
-
-        const authToken = jwt.sign(
-          payload,
-          process.env.TOKEN_SECRET,
-          { algorithm: 'HS256', expiresIn: "48h" }
-        );
-        return res.status(200).json({ authToken: authToken });
+        res.status(201).json(user);
       })
       .catch((error) => {
         if (error instanceof mongoose.Error.ValidationError) {
@@ -79,8 +70,6 @@ router.post("/signup", (req, res) => {
 });
 
 
-
-
 // 2- FUNCTIONALITY TO LOGIN
 router.post("/login", (req, res, next) => {
   const { username, password } = req.body;
@@ -96,7 +85,6 @@ router.post("/login", (req, res, next) => {
       errorMessage: "Your password needs to be at least 8 characters long.",
     });
   }
-
 
   // Search for the user in the database
   User.findOne({ username })
@@ -133,7 +121,6 @@ router.post("/login", (req, res, next) => {
 
 // Check if token is valid (JWT stored on the client)
 router.get("/verify", isAuthenticated, (req, res, next) => {
-
   // Send back the object with user data previously set as the token payload
   res.json(req.payload);
 });
